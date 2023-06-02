@@ -1,0 +1,65 @@
+@import './reset';
+
+#wrapper {
+    display: grid;
+    grid-template-rows: 1fr 5fr 1fr;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+#nav {
+padding: 1rem;
+ display: grid;
+ grid-template-columns: repeat(3, 2fr);
+ border: 1px solid rgba(128, 128, 128, 0.219);
+}
+ nav {
+    grid-row: 1;
+    padding: 1rem;
+    display: grid;
+    width: 300px;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 2fr 1fr;
+    border: 1px solid rgba(128, 128, 128, 0.253);
+    input[type="search"] {
+        grid-row: -1;
+    }
+    button {
+        grid-row: -1;
+    }
+}
+
+#city-name {
+    font-family: monospace;
+    font-size: 28px;
+}
+
+
+#today {
+    grid-row: 2;
+    display: grid;
+    padding: 2rem;
+    width: 400px;
+    border: 1px solid rgba(128, 128, 128, 0.349);
+}
+
+
+#weekly-forecast {
+    grid-row: 4;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+    grid-template-columns: repeat(7, 1fr);
+    bottom: 0;
+    padding: 1rem 1rem 8rem;
+}
+
+#date-element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
