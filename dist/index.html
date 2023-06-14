@@ -8,19 +8,21 @@
 <script defer src="main.js"></script></head>
 <body>
    <div id="wrapper">
-        <nav id="nav">
-          
-                <div id="cityName"></div>
-                <input type="search" id="searcbar">
-                <button id="search-btn">Search</button>
-                
-          
-        </nav>
+        <div id="nav">
+            <nav>
+                    <div id="city-name"></div>
+                    <input type="search" id="searchbar" value="Oslo">
+                    <button id="search-btn">Search</button>
+            
+            
+            </nav>
+        </div>
         <div id="today">
-            <p>Weather now</p>
             <div id="weather-overview">
                 <img id="weather-icon" src="#">
+                <div id ="condition"></div>
                 <div id="temp"></div>
+                <div id="humidity"></div>
                 <div id="rain"></div>
                 <div id="wind"></div>
             </div>
