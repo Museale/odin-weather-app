@@ -1,12 +1,7 @@
 {
-    "extends": [
-      "prettier"
-    ],
-    "parser": "babel-eslint",
-    "rules": {
-        "quotes": [
-            "error",
-            "single"
-        ]
-      }
+  "extends": ["prettier"],
+  "parser": "babel-eslint",
+  "rules": {
+    "quotes": ["error", "single"]
+  }
 }
