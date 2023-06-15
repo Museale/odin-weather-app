@@ -28,11 +28,12 @@ const get = (() => {
     weeklyForecast,
     wrapper,
     feelsLike,
-    localTime
+    localTime,
   };
 })();
 
-get.searchBtn.addEventListener('click', () => {
+get.searchBtn.addEventListener('click', (e) => {
+  e.preventDefault();
   getWeather();
   getForecast();
   render();
@@ -47,38 +48,26 @@ const getWeather = async () => {
     const JSON = await response.json();
 
     const weatherObj = {
-      location: JSON.location.name + ' ' +JSON.location.country,
+      location: JSON.location.name + ' ' + JSON.location.country,
       localtime: JSON.location.localtime,
       temp: JSON.current.temp_c,
       tempFeelsLike: JSON.current.feelslike_c,
       condition: JSON.current.condition.text,
-    //   condition: 'Snow',
+      //   condition: 'Snow',
       humidity: JSON.current.humidity,
       wind: JSON.current.wind_mph,
       rain: JSON.current.precip_mm,
       isDay: JSON.current.is_day,
       conditionIcon: JSON.current.condition.icon,
     };
-  
+
     return { weatherObj };
   } catch (error) {
-    console.log(error, 'error');
-    return error;
+    console.log(error);
+    alert('Invalid city name');
+    window.location.reload();
   }
 };
-const forecastTest = async () => {
-    try {
-        const response = await fetch(
-            `https://api.weatherapi.com/v1/forecast.json?key=5cc78e0155574313a84110056233005&q=${location}&days=7`
-        )
-        const json = await response.json();
-        console.log(json)
-    }catch {
-        console.log('err')
-    }
-}
-
-forecastTest()
 
 const getForecast = async () => {
   if (get.weeklyForecast.hasChildNodes()) {
@@ -95,7 +84,7 @@ const getForecast = async () => {
   try {
     const location = get.searchBar.value;
     const response = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=5cc78e0155574313a84110056233005&q=${location}&days=7`
+      `https://api.weatherapi.com/v1/forecast.json?key=5cc78e0155574313a84110056233005&q=${location}&days=3`
     );
 
     const JSON = await response.json();
@@ -106,22 +95,16 @@ const getForecast = async () => {
     return {
       forecastObj,
     };
-  } catch (error) {
-    console.log('error');
-    alert('Please input a valid city name!');
-    get.searchBar.value = 'oslo'
-    return error;
-  }
+  } catch (error) {}
 };
 
 const render = async () => {
-  if(!location) {
-    return;
-  }
   const weather = await getWeather();
   const forecast = await getForecast();
   const forecastDays = await forecast.forecastObj.forecastDays;
-
+  if (!location) {
+    return;
+  }
   const setCity = (() =>
     (get.city.textContent = weather.weatherObj.location))();
   const setCondition = (() =>
@@ -139,7 +122,8 @@ const render = async () => {
   const setIcon = (() =>
     (get.weatherIcon.src = `${weather.weatherObj.conditionIcon}`))();
   const feelsLike = (() =>
-    (get.feelsLike.textContent = 'Feels like ' + weather.weatherObj.tempFeelsLike + '°'))();
+    (get.feelsLike.textContent =
+      'Feels like ' + weather.weatherObj.tempFeelsLike + '°'))();
 
   if (weather.weatherObj.isDay) {
     get.wrapper.classList = 'day';
@@ -164,11 +148,10 @@ const render = async () => {
   if (
     weather.weatherObj.condition == 'Snow' ||
     weather.weatherObj.condition == 'Sleet' ||
-    weather.weatherObj.condition == 'Light sleet' 
+    weather.weatherObj.condition == 'Light sleet'
   ) {
     get.wrapper.classList.add('snow');
   }
-
 
   forecastDays.forEach((day) => {
     const date = new Date(day.date);
