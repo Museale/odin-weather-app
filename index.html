@@ -5,19 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Njord Weather</title>
-    <script defer src="main.js"></script>
-  </head>
+  <script defer src="main.js"></script></head>
   <body>
     <div id="wrapper">
       <div id="nav">
         <nav>
-          <div id="city-name"></div>
-          <input type="search" id="searchbar" value="Oslo" />
-          <button id="search-btn">Search</button>
+          <div id="title-name">Njordvær</div>
+          <form action="">
+            <input type="search" id="searchbar" value="Oslo" required />
+            <input type="submit" id="search-btn" value="" />
+          </form>
         </nav>
       </div>
       <div id="today">
         <div id="weather-overview">
+          <div id="city-name"></div>
+          <div id="local-time"></div>
           <img id="weather-icon" src="#" />
           <div id="condition"></div>
           <div id="temp"></div>
