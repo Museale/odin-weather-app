@@ -1,4 +1,16 @@
 @import './reset';
+
+@mixin icons () {
+    content: ' ';
+    background-position: bottom;
+    background-size: 30px;
+    background-repeat: no-repeat;
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    top: 8px;
+}
 * {
     font-family:'Courier New', Courier, monospace;
     
@@ -59,14 +71,28 @@
     }
 }
 
-#city-name {
+#title-name {
     grid-column: 2;
-    font-size: 48px;
+    font-size: 38px;
     color:white;
     text-shadow: rgba(123, 111, 252, 0.473) 2px 2px;
     font-weight: bold;
-
+    
 }
+#title-name::before {
+    content: ' ';
+    background-image: url('./icons/snowflake.png');
+    background-size: cover;
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    padding-right: 1.7rem;
+    margin-right: 1rem;
+    filter:opacity(0.4)
+}
+
+
 
 #today {
     display: grid;
@@ -85,16 +111,23 @@
     grid-template-rows: 1fr 1fr;
     justify-content: start;
     align-items: center;
+    gap: 10px
 }
 
 #right-overview {
     grid-row: 1;
     grid-column: 2;
     justify-self: end;
+    display: grid;
+    >div {
+        padding-bottom: 1rem;
+    }
 }
-
+#city-name {
+    font-size: 35px;
+}
 #condition {
-    font-size: 40px;
+    font-size: 3rem;
     grid-row: 1;
 
 }
@@ -103,18 +136,35 @@
     font-weight: bold;
     grid-row: 2;
 }
+
+
 #rain::before {
-    content: ' ';
-  
+    @include icons();
+    background-image: url('./icons/umbrella.png');
 
 }
+
+#humidity::before {
+    @include icons();
+    opacity: 0.7;
+    background-image: url('./icons/9044639_humidity_alt_icon.svg');
+}
+
+#wind::before {
+    @include icons();
+    opacity: 0.6;
+    background-image: url('./icons/8666815_wind_windy_weather_icon.svg');
+}
+
 #weather-icon {
     grid-row: 3;
     width: 100px;
     margin-left: -20px;
 }
 
-
+#feels-like {
+    grid-row: 6;
+}
 #weekly-forecast {
     grid-row: 4;
     display: grid;
@@ -158,9 +208,13 @@ background: linear-gradient(42deg, rgba(205,255,246,1) 4%, rgba(255,255,255,1) 2
 .night {
     
 background: rgb(123,111,252);
-background: linear-gradient(90deg, rgba(123,111,252,1) 20%, rgba(64,58,153,1) 44%, rgba(27,22,96,1) 68%);
+background: linear-gradient(90deg, rgba(123,111,252,1) 20%, rgb(74, 67, 175) 44%, rgba(36, 29, 129, 0.918) 68%);
 }
 
 .day {
     background-color: #85d3f167;
+}
+
+img {
+    
 }

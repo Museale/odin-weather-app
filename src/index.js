@@ -13,6 +13,7 @@ const get = (() => {
   const wind = document.getElementById('wind');
   const weeklyForecast = document.getElementById('weekly-forecast');
   const wrapper = document.getElementById('wrapper');
+  const localTime = document.getElementById('local-time');
 
   return {
     city,
@@ -27,6 +28,7 @@ const get = (() => {
     weeklyForecast,
     wrapper,
     feelsLike,
+    localTime
   };
 })();
 
@@ -45,7 +47,8 @@ const getWeather = async () => {
     const JSON = await response.json();
 
     const weatherObj = {
-      location: JSON.location.name,
+      location: JSON.location.name + ' ' +JSON.location.country,
+      localtime: JSON.location.localtime,
       temp: JSON.current.temp_c,
       tempFeelsLike: JSON.current.feelslike_c,
       condition: JSON.current.condition.text,
@@ -105,11 +108,16 @@ const getForecast = async () => {
     };
   } catch (error) {
     console.log('error');
+    alert('Please input a valid city name!');
+    get.searchBar.value = 'oslo'
     return error;
   }
 };
 
 const render = async () => {
+  if(!location) {
+    return;
+  }
   const weather = await getWeather();
   const forecast = await getForecast();
   const forecastDays = await forecast.forecastObj.forecastDays;
@@ -118,6 +126,8 @@ const render = async () => {
     (get.city.textContent = weather.weatherObj.location))();
   const setCondition = (() =>
     (get.condition.textContent = weather.weatherObj.condition))();
+  const setLocaltime = (() =>
+    (get.localTime.textContent = weather.weatherObj.localtime))();
   const setHumidity = (() =>
     (get.humidity.textContent = 'Humidity: ' + weather.weatherObj.humidity))();
   const setChanceOfRain = (() =>
